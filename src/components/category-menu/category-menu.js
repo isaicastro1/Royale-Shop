@@ -1,7 +1,4 @@
-import CategoryItem from "./components/category-item/category-item";
-import "./categories.scss";
-
-const App = () => {
+const CategoryMenu = () => {
   const categories = [
     {
       id: 1,
@@ -29,14 +26,7 @@ const App = () => {
       imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
   ];
-
-  return (
-    <div className="categories-container">
-      {categories.map((category) => (
-        <CategoryItem key={category.id} category={category} />
-      ))}
-    </div>
-  );
+  return <div></div>;
 };
 
-export default App;
+export default CategoryMenu;
