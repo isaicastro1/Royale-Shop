@@ -29,7 +29,11 @@ const Home = () => {
     },
   ];
 
-  return <CategoryMenu categories={categories} />;
+  return (
+    <div>
+      <CategoryMenu categories={categories} />;
+    </div>
+  );
 };
 
 export default Home;
