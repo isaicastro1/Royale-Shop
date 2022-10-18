@@ -35,12 +35,8 @@ export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
   const userDocRef = await doc(db, "users", userAuth.uid);
-  //   console.log("userDocRef", userDocRef);
-  //   console.log("userAuth", userAuth);
 
   const userSnapshot = await getDoc(userDocRef);
-  //   console.log("userSnapshot", userSnapshot);
-  //   console.log("userSnapshot exists", userSnapshot.exists());
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
