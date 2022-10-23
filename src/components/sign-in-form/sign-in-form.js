@@ -44,6 +44,7 @@ const SignInForm = () => {
     try {
       const { user } = await signInUserWithEmailAndPassword(email, password);
       setCurrentUser(user);
+      console.log("current user set");
 
       resetFormFields();
     } catch (error) {
