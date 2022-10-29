@@ -12,12 +12,12 @@ $main-color: black;
   margin: 45px 0;
 
   .form-input {
+    display: block;
     background: none;
     background-color: white;
     color: $sub-color;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
-    display: block;
     width: 100%;
     border: none;
     border-radius: 0;
