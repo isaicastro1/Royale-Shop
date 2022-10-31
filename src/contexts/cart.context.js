@@ -20,18 +20,36 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  const exisitingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  );
+
+  // remove item completely from cart
+  if (exisitingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: --cartItem.quantity }
+      : cartItem
+  );
+};
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
   cartCount: 0,
+  removeItemFromCart: () => {},
   setCartCount: () => {},
 });
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setcartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
 
   // Adds count to shopping cart icon
@@ -44,7 +62,11 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addItemToCart = (productToAdd) => {
-    setcartItems(addCartItem(cartItems, productToAdd));
+    setCartItems(addCartItem(cartItems, productToAdd));
+  };
+
+  const removeItemFromCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
   };
 
   const value = {
@@ -54,6 +76,7 @@ export const CartProvider = ({ children }) => {
     cartItems,
     setCartCount,
     cartCount,
+    removeItemFromCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
