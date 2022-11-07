@@ -1,40 +1,43 @@
-import "./checkout-item.scss";
-
 import { useContext } from "react";
 import { CartContext } from "../../contexts/cart.context";
 
-const CheckoutItem = ({ cartItem }) => {
-  const { name, imageUrl, price, quantity } = cartItem;
+import CheckoutItem from "../../components/checkout-item/checkout-item";
 
-  const { clearItemFromCart, addItemToCart, removeItemFromCart } =
-    useContext(CartContext);
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+} from "./checkout-item.styles";
 
-  // if methods ever change, clear view of where we need to change them
-  const clearItemHandler = () => clearItemFromCart(cartItem);
-  const removeItemHandler = () => removeItemFromCart(cartItem);
-  const addItemHandler = () => addItemToCart(cartItem);
+const Checkout = () => {
+  const { cartItems, cartTotal } = useContext(CartContext);
 
   return (
-    <div className="checkout-item-container">
-      <div className="image-container">
-        <img src={imageUrl} alt={name} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={removeItemHandler}>
-          &#10094;
-        </div>
-        <span className="value">{quantity}</span>
-        <div className="arrow" onClick={addItemHandler}>
-          &#10095;
-        </div>
-      </span>
-      <span className="price">{price}</span>
-      <div className="remove-button" onClick={clearItemHandler}>
-        &#10005;
-      </div>
-    </div>
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
+          <span>Product</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Description</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Quantity</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Price</span>
+        </HeaderBlock>
+        <HeaderBlock>
+          <span>Remove</span>
+        </HeaderBlock>
+      </CheckoutHeader>
+      {cartItems.map((cartItem) => (
+        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+      ))}
+      <Total>Total: ${cartTotal}</Total>
+    </CheckoutContainer>
   );
 };
 
-export default CheckoutItem;
+export default Checkout;

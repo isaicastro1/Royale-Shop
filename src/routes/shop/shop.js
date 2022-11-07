@@ -4,7 +4,7 @@ import CategoriesPreview from "../categories-preview/categories-preview";
 
 import Category from "../category/category";
 
-import "./shop.scss";
+import "./shop.styles.scss";
 
 const Shop = () => {
   return (
