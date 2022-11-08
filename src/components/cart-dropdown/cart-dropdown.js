@@ -15,12 +15,14 @@ import {
 } from "./cart-dropdown.styles";
 
 const CartDropdown = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, isCartOpen, setIsCartOpen } = useContext(CartContext);
 
   const navigate = useNavigate();
 
-  const goToCheckout = () => {
+  // closes dropdown when navigating to different page
+  const goToCheckoutHandler = () => {
     navigate("/checkout");
+    setIsCartOpen(!isCartOpen);
   };
 
   return (
@@ -32,7 +34,7 @@ const CartDropdown = () => {
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
-      <Button onClick={goToCheckout}>GO TO CHECKOUT</Button>
+      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
     </CartDropdownContainer>
   );
 };
