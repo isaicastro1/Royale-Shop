@@ -37,4 +37,7 @@ export const CartItems = styled.div`
   flex-direction: column;
   height: 240px;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
