@@ -38,6 +38,11 @@ const PaymentForm = () => {
       body: JSON.stringify({ amount: amount * 100 }),
     }).then((res) => res.json());
 
+    if (response.error) {
+      setisProcessingPayment(false);
+      return alert("There has been an error, please try again");
+    }
+
     const {
       paymentIntent: { client_secret },
     } = response;
