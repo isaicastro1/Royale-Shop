@@ -12,6 +12,7 @@ import Shop from "./routes/shop/shop";
 import Navigation from "./routes/navigation/navigation";
 import Authentication from "./routes/authentication/authentication";
 import Checkout from "./routes/checkout/checkout";
+import Order from "./routes/order/order";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="shop/*" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="order" element={<Order />} />
       </Route>
     </Routes>
   );

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useNavigate } from "react-router-dom";
 
-import { selectCartTotal } from "../../store/cart/cart.selector";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { clearCart } from "../../store/cart/cart.action";
 
@@ -20,8 +24,11 @@ const PaymentForm = () => {
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
   const [isProcessingPayment, setisProcessingPayment] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const paymentHandler = async (event) => {
     event.preventDefault();
@@ -37,6 +44,11 @@ const PaymentForm = () => {
       },
       body: JSON.stringify({ amount: amount * 100 }),
     }).then((res) => res.json());
+
+    if (response.error) {
+      setisProcessingPayment(false);
+      return alert("There has been an error, please try again");
+    }
 
     const {
       paymentIntent: { client_secret },
@@ -57,8 +69,15 @@ const PaymentForm = () => {
       alert(paymentResult.error.message);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
+        const orderDetails = JSON.stringify(cartItems);
+        const orderTotal = JSON.stringify(cartTotal);
+
+        // Store the string in local storage
+        localStorage.setItem("orderDetails", orderDetails);
+        localStorage.setItem("orderTotal", orderTotal);
         alert("Payment Successful");
         dispatch(clearCart());
+        navigate("/order");
       }
     }
   };
@@ -74,6 +93,7 @@ const PaymentForm = () => {
         <PaymentButton
           isLoading={isProcessingPayment}
           buttonType={BUTTON_TYPE_CLASSES.inverted}
+          disabled={!cartItems.length}
         >
           Pay Now
         </PaymentButton>
