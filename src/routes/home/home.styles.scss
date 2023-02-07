@@ -1,0 +1,13 @@
+.menu-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  position: relative;
+}
+
+@media screen and (max-width: 700px) {
+  .menu-wrapper {
+    top: 200px;
+  }
+}
