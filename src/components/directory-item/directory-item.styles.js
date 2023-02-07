@@ -65,4 +65,8 @@ export const DirectoryItemComponent = styled.div`
   &:last-child {
     margin-left: 7.5px;
   }
+
+  @media screen and (max-width: 700px) {
+    min-width: 90%;
+  }
 `;

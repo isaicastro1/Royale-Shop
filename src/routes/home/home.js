@@ -1,8 +1,10 @@
 import CategoryMenu from "../../components/category-menu/category-menu";
 
+import "./home.styles.scss";
+
 const Home = () => {
   return (
-    <div>
+    <div className="menu-wrapper">
       <CategoryMenu />
     </div>
   );

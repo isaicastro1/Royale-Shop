@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,7 +10,7 @@ import CartIcon from "../../components/cart-icon/cart-icon";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown";
 
 import {
-  NavigationContainer,
+  NavigationWrapper,
   LogoContainer,
   NavLink,
   NavLinksContainer,
@@ -22,28 +21,32 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
-    <Fragment>
-      <NavigationContainer>
+    <>
+      <NavigationWrapper>
         <LogoContainer to="/">
           <CrownLogo />
         </LogoContainer>
         <NavLinksContainer>
-          <NavLink to="/shop">SHOP</NavLink>
+          <NavLink to="/shop">
+            <p>SHOP</p>
+          </NavLink>
 
           {currentUser ? (
             <NavLink as="span" onClick={signOutUser}>
-              SIGN OUT
+              <p>SIGN OUT</p>
             </NavLink>
           ) : (
-            <NavLink to="/auth">SIGN IN</NavLink>
+            <NavLink to="/auth">
+              <p>SIGN IN</p>
+            </NavLink>
           )}
 
           <CartIcon />
         </NavLinksContainer>
         {isCartOpen && <CartDropdown />}
-      </NavigationContainer>
+      </NavigationWrapper>
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 
