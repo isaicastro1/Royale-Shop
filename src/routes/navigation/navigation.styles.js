@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const NavigationContainer = styled.div`
+export const NavigationWrapper = styled.div`
   height: 70px;
   width: 100%;
   display: flex;
@@ -21,9 +21,21 @@ export const NavLinksContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media screen and (max-width: 500px) {
+    justify-content: space-around;
+  }
 `;
 
 export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+    & p {
+      font-size: 13px;
+    }
+  }
 `;
